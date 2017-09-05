@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-
-export class Game {
-  id: number;
-  name: string;
-}
+import { Game } from './game';
 
 const GAMES: Game[] = [
   { id: 11, name: 'Risen' },
@@ -30,14 +26,7 @@ const GAMES: Game[] = [
           <span class="badge">{{game.id}}</span> {{game.name}}
       </li>
     </ul>
-    <div *ngIf="selectedGame">
-      <h2>{{selectedGame.name}} details!</h2>
-      <div><label>id: </label>{{selectedGame.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedGame.name" placeholder="name">
-      </div>
-    </div>
+    <game-detail [game]="selectedGame"></game-detail>
   `,
   //templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

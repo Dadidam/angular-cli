@@ -3,10 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { GameDetailComponent } from './game-detail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GameDetailComponent,
   ],
   imports: [
     BrowserModule,
