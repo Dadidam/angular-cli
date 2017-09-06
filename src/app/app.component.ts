@@ -1,18 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Game } from './game';
-
-const GAMES: Game[] = [
-  { id: 11, name: 'Risen' },
-  { id: 12, name: 'Knight & Merchants' },
-  { id: 13, name: 'Gothic: Forsaken Gods' },
-  { id: 14, name: 'The Witcher' },
-  { id: 15, name: 'Half-Life' },
-  { id: 16, name: 'Hearthstone' },
-  { id: 17, name: 'Warcraft' },
-  { id: 18, name: 'Theme Hospital' },
-  { id: 19, name: 'Hay Day' },
-  { id: 20, name: 'Puzzle Craft' }
-];
+import { GameService } from './game.service';
 
 @Component({
   selector: 'app-root',
@@ -29,12 +17,24 @@ const GAMES: Game[] = [
     <game-detail [game]="selectedGame"></game-detail>
   `,
   //templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [GameService],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'My favorite games';
+  games: Game[];
   selectedGame: Game;
-  games = GAMES;
+
+  constructor(private gameService: GameService) { };
+
+  ngOnInit(): void {
+    this.getGames();
+  }
+
+  getGames(): void {
+    this.gameService.getGamesSlowly().then(games => this.games = games);
+  }
+
   onSelect(game: Game): void {
     this.selectedGame = game;
   }
