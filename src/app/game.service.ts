@@ -12,4 +12,7 @@ export class GameService {
       setTimeout(() => resolve(this.getGames()), 2000);
     })
   }
+  getGame(id: number): Promise<Game> {
+    return this.getGames().then(games => games.find(game => game.id === id));
+  }
 }

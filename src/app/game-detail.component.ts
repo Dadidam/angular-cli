@@ -1,20 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
+
+import 'rxjs/add/operator/switchMap';
+
 import { Game } from './game';
+import { GameService } from './game.service';
 
 @Component({
     selector: 'game-detail',
-    template: `
-      <div *ngIf="game">
-        <h2>{{game.name}} details!</h2>
-        <div><label>id: </label>{{game.id}}</div>
-        <div>
-          <label>name: </label>
-          <input [(ngModel)]="game.name" placeholder="name">
-        </div>
-      </div>
-    `
+    templateUrl: './game-detail.component.html',
+    styleUrls: ['./game-detail.component.css']
 })
 
-export class GameDetailComponent {
-  @Input() game: Game;
+export class GameDetailComponent implements OnInit {
+
+  game: Game;
+
+  constructor(
+    private gameService: GameService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap
+      .switchMap((params: ParamMap) => this.gameService.getGame(+params.get('id')))
+      .subscribe(game => this.game = game);
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 }
