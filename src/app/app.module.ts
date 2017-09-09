@@ -8,6 +8,7 @@ import { GameService } from './game.service';
 import { GamesComponent } from './games.component';
 import { DashboardComponent } from './dashboard.component';
 import { GameDetailComponent } from './game-detail.component';
+import { GameSearchComponent } from './game-search.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -20,6 +21,7 @@ import { InMemoryDataService }  from './in-memory-data.service';
     GamesComponent,
     DashboardComponent,
     GameDetailComponent,
+    GameSearchComponent,
   ],
   imports: [
     BrowserModule,
