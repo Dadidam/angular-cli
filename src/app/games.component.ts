@@ -18,7 +18,7 @@ export class GamesComponent implements OnInit {
   ) { };
 
   getGames(): void {
-    this.gameService.getGamesSlowly().then(games => this.games = games);
+    this.gameService.getGames().then(games => this.games = games);
   }
 
   ngOnInit(): void {
@@ -31,5 +31,26 @@ export class GamesComponent implements OnInit {
 
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedGame.id]);
+  }
+
+  add(title: string): void {
+    title = title.trim();
+
+    if (!title) { return; }
+
+    this.gameService.create(title)
+                    .then(game => {
+                      this.games.push(game);
+                      this.selectedGame = null;
+                    });
+  }
+
+  delete(game: Game): void {
+    this.gameService
+            .delete(game.id)
+            .then(() => {
+              this.games = this.games.filter(g => g !== game);
+              if (this.selectedGame === game) { this.selectedGame = null; }
+            });
   }
 }

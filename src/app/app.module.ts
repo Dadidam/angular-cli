@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-// import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -11,6 +11,9 @@ import { GameDetailComponent } from './game-detail.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,9 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [ GameService ],
   bootstrap: [ AppComponent ]
